@@ -24,22 +24,15 @@ public:
 
 template <typename V>
 TableEntry<V>::TableEntry(std::string key, V value)
-{
-    this->key = key;
-    this->value = value;
-}
+    : key(key), value(value) {}
 
 template <typename V>
 TableEntry<V>::TableEntry(std::string key)
-{
-    this->key = key;
-}
+    : key(key), value(V()) {}
 
 template <typename V>
 TableEntry<V>::TableEntry()
-{
-    this->key = "";
-}
+    : key(""), value(V()) {}
 
 template <typename V>
 V TableEntry<V>::getValue() const {
@@ -55,13 +48,13 @@ bool operator==(const TableEntry<V> &te1, const TableEntry<V> &te2)
 template <typename V>
 bool operator!=(const TableEntry<V> &te1, const TableEntry<V> &te2)
 {
-    return te1.key != te2.key;
+    return !(te1 == te2);
 }
 
 template <typename V>
 std::ostream &operator<<(std::ostream &out, const TableEntry<V> &te)
 {
-    out << te.key << " " << te.value;
+    out << "Key: " << te.key << ", Value: " << te.value;
     return out;
 }
 
