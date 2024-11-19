@@ -13,7 +13,7 @@ class HashTable: public Dict<V> {
     private:
         int n;
         int max;
-        std::list<TableEntry<V>>* table;
+        std::list<TableEntry<V> >* table;
 
         int h(std::string key);
 
@@ -27,16 +27,15 @@ class HashTable: public Dict<V> {
         // Implementación de métodos virtuales de Dict
         void insert(std::string key, V value) override;
         V search(std::string key) override;
-        void remove(std::string key) override;
+        V remove(std::string key) override;
         int entries() override;
 };
-
 
 template <typename V>
 HashTable<V>::HashTable(int size) {
     this->n = 0;
     this->max = size;
-    this->table = new std::list<TableEntry<V>>[size];
+    this->table = new std::list<TableEntry<V> >[size];
 }
 
 template <typename V>
@@ -52,8 +51,8 @@ int HashTable<V>::capacity() {
 template <typename V>
 int HashTable<V>::h(std::string key) {
     int sum = 0;
-    for (int i = 0; i < key.length(); i++) {
-        sum += key[i];
+    for (char c : key) {
+        sum += static_cast<int>(c);
     }
     return sum % this->max;
 }
@@ -79,13 +78,18 @@ V HashTable<V>::operator[](std::string key) {
             return entry.getValue();
         }
     }
-    throw std::invalid_argument("Key not found");
+    throw std::runtime_error("Key not found");
 }
 
 template <typename V>
 void HashTable<V>::insert(std::string key, V value) {
     int pos = this->h(key);
     TableEntry<V> te(key, value);
+    for (const auto& entry : this->table[pos]) {
+        if (entry == te) {
+            throw std::runtime_error("Key already exists");
+        }
+    }
     this->table[pos].push_back(te);
     this->n++;
 }
@@ -99,22 +103,23 @@ V HashTable<V>::search(std::string key) {
             return entry.getValue();
         }
     }
-    throw std::invalid_argument("Key not found");
+    throw std::runtime_error("Key not found");
 }
 
 template <typename V>
-void HashTable<V>::remove(std::string key) {
+V HashTable<V>::remove(std::string key) {
     int pos = this->h(key);
     TableEntry<V> te(key);
     auto& entries = this->table[pos];
     for (auto it = entries.begin(); it != entries.end(); ++it) {
         if (*it == te) {
+            V value = it->getValue();
             entries.erase(it);
             this->n--;
-            return;
+            return value;
         }
     }
-    throw std::invalid_argument("Key not found");
+    throw std::runtime_error("Key not found");
 }
 
 template <typename V>
