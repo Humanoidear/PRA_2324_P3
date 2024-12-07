@@ -4,7 +4,6 @@
 #include <ostream>
 #include <stdexcept>
 #include "BSNode.h"
-#include "Queue.h"
 
 template <typename T>
 class BSTree
@@ -64,35 +63,6 @@ private:
 			out << n->elem << " ";
 
 			print_inorder(out, n->right);
-		}
-	}
-
-	void recorrido_en_anchura(std::ostream &out, BSNode<T> *n) const
-	{
-		if (n == nullptr)
-		{
-			return;
-		}
-
-		Queue<BSNode<T> *> q;
-		q.enqueue(n);
-
-		while (!q.empty())
-		{
-			BSNode<T> *current = q.front();
-			q.dequeue();
-
-			out << current->elem << " ";
-
-			if (current->left != nullptr)
-			{
-				q.enqueue(current->left);
-			}
-
-			if (current->right != nullptr)
-			{
-				q.enqueue(current->right);
-			}
 		}
 	}
 

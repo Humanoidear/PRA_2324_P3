@@ -168,5 +168,20 @@ int main()
     std::cout << "cout << bstree: " << std::endl << bstree << std::endl;
     std::cout << std::endl; 
 
+    /*
+    std::cout << "PRINT RECORRIDO EN ANCHURA" << std::endl;
+    std::cout << "-------------------------" << std::endl;
+    // Recorrido en anchura
+    bstree.recorrido_en_anchura(std::cout);
+    */
+
+    // Sucesor, predecesor, minimo
+    /*
+    std::cout << "bstree.predecesor(15): " << bstree.predecesor(15) << std::endl;
+
+    std::cout << "bstree.sucesor(15): " << bstree.sucesor(15) << std::endl;
+    
+    std::cout << "bstree.minimo(): " << bstree.min() << std::endl;
+    */
     return 0;
 }

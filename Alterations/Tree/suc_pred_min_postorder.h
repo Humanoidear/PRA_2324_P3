@@ -231,6 +231,11 @@ public:
         return successor->elem;
     }
 
+	T min() const
+	{
+		return min(root);
+	}
+
 private:
     void postorder_predecessor(BSNode<T> *n, T e, bool &found, BSNode<T> *&predecessor)
     {

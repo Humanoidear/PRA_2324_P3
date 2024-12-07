@@ -264,6 +264,11 @@ public:
 
         return successor->elem;
     }
+
+	T min() const
+	{
+		return min(root);
+	}
 };
 
 #endif

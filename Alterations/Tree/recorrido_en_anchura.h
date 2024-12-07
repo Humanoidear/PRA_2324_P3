@@ -204,6 +204,12 @@ public:
 	{
 		delete_cascade(root);
 	}
+
+	// Lanzadera para recorrido en anchura
+	void recorrido_en_anchura(std::ostream &out) const
+	{
+		recorrido_en_anchura(out, root);
+	}
 };
 
 #endif
